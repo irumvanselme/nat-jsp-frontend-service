@@ -39,6 +39,12 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <version>9.0.44</version>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 
     <build>
