@@ -8,15 +8,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import rw.ac.rca.nat2022.frontend.pojo.User;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/todos")
 public class TodoResource {
 
+    @GetMapping("/set-session")
+    public String setSession(HttpServletRequest request) {
+        request.getSession().setAttribute("user_id","My new USER ID");
+        return "todos/all";
+    }
+
     @GetMapping
-    public String viewAll(Model model) {
+    public String viewAll(Model model, HttpServletRequest request) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<User[]> userResponse = restTemplate.getForEntity("https://jsonplaceholder.typicode.com/users", User[].class);
         model.addAttribute("users", userResponse.getBody());
+
+        System.out.println(request.getSession().getAttribute("user_id"));
+
         return "todos/all";
     }
 }
