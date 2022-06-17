@@ -30,6 +30,11 @@
         </tr>
     </c:forEach>
     </tbody>
+    <form action="/todos" method="post">
+        <input type="text" name="title">
+        <input type="text" name="description">
+        <button type="submit">Add Todo</button>
+    </form>
 </table>
 </body>
 </html>
