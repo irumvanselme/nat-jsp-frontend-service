@@ -1,5 +1,8 @@
 package rw.ac.rca.nat2022.frontend.web.rest;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +36,22 @@ public class TodoResource {
     @PostMapping
     public String add(String title, String description) {
         System.out.println("title: " + title + " description: " + description);
+        return "todos/all";
+    }
+
+    @GetMapping("/my-profile")
+    public String getProfile() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Authorization", "Some token value");
+
+        HttpEntity<String> entity = new HttpEntity<>("body", headers);
+
+        ResponseEntity<String> userResponse = restTemplate.exchange("the Url Here", HttpMethod.GET, entity, String.class);
+
+        System.out.println(userResponse.getBody());
+
         return "todos/all";
     }
 }
