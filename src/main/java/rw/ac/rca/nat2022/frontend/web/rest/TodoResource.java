@@ -20,6 +20,7 @@ public class TodoResource {
 
     @GetMapping("/set-session")
     public String setSession(HttpServletRequest request) {
+
         request.getSession().setAttribute("user_id", "My new USER ID");
         return "todos/all";
     }
@@ -27,6 +28,7 @@ public class TodoResource {
     @GetMapping
     public String viewAll(Model model, HttpServletRequest request) {
         RestTemplate restTemplate = new RestTemplate();
+
         ResponseEntity<User[]> userResponse = restTemplate.getForEntity("https://jsonplaceholder.typicode.com/users", User[].class);
         model.addAttribute("users", userResponse.getBody());
 
@@ -40,13 +42,15 @@ public class TodoResource {
     }
 
     @GetMapping("/my-profile")
-    public String getProfile() {
+    public String getProfile(HttpServletRequest request) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
 
-        headers.add("Authorization", "Some token value");
+        String token = request.getSession().getAttribute("token").toString();
 
-        HttpEntity<String> entity = new HttpEntity<>("body", headers);
+        headers.setBearerAuth(token);
+
+        HttpEntity<String> entity = new HttpEntity<>("", headers);
 
         ResponseEntity<String> userResponse = restTemplate.exchange("the Url Here", HttpMethod.GET, entity, String.class);
 
