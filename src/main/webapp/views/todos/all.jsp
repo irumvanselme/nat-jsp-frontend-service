@@ -24,7 +24,7 @@
     <tbody>
     <c:forEach items="${users}" var="book">
         <tr>
-            <td>${book.id}</td>
+            <td onclick="window.location.assign('/posts/'${book.id})">${book.id}</td>
             <td>${book.name}</td>
             <td>${book.username}</td>
         </tr>

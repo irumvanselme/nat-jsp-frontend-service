@@ -20,7 +20,6 @@ public class TodoResource {
 
     @GetMapping("/set-session")
     public String setSession(HttpServletRequest request) {
-
         request.getSession().setAttribute("user_id", "My new USER ID");
         return "todos/all";
     }
